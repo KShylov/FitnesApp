@@ -17,11 +17,17 @@ import com.example.myfitnesapp.databinding.ActivityMainBinding;
 
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
 
     private AppBarConfiguration appBarConfiguration;
     private ActivityMainBinding binding;
+    private EditText inputNameId;
+    private Button create;
+    private Button next;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,19 +36,28 @@ public class MainActivity extends AppCompatActivity {
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        setSupportActionBar(binding.toolbar);
+        inputNameId = findViewById(R.id.inputNameId);
+        create = findViewById(R.id.createPerson);
+        next = findViewById(R.id.nextId);
 
-        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_main);
-        appBarConfiguration = new AppBarConfiguration.Builder(navController.getGraph()).build();
-        NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
-
-        binding.fab.setOnClickListener(new View.OnClickListener() {
+        create.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                String name = inputNameId.getText().toString().trim();
+                if (name.equals("")) {
+                    Toast.makeText(MainActivity.this, R.string.preliminary_text_for_field_name, Toast.LENGTH_LONG).show();
+                } else {
+                    Toast.makeText(MainActivity.this, "Hellow " + name, Toast.LENGTH_LONG).show();
+                }
             }
         });
+        next.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
+
     }
 
     @Override
